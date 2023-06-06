@@ -681,6 +681,13 @@ function fqPolyRepFieldElem(a::fqPolyRepField, b::Vector{UInt})
    return r
 end
 
+function (a::fqPolyRepField)(b::Vector{IntegerUnion})
+   da = degree(a)
+   db = length(b)
+   da < db && error("Coercion impossible")
+   return a(polynomial(prime_field(a), b))
+end
+
 ###############################################################################
 #
 #   FlintFiniteField constructor
