@@ -515,3 +515,7 @@ end
    end
 end
 
+@testset "gfp_fmpz.overload" begin
+   R = GF(ZZ(19))
+   @test R([5]) == R(5)
+end

@@ -253,3 +253,8 @@ end
    S, y = polynomial_ring(GF(ZZ(23)), "y")
    @test lift(S, f) == 8y + 9
 end
+
+@testset "FqPolyRepField.overload" begin
+   R, x = FiniteField(ZZ(19), 3, "x")
+   @test R([1,0,1]) == x^2 +1
+end

@@ -497,7 +497,7 @@ end
                z = rand(R)
             end
          end
-   
+
          for iter = 1:100
             a = rand(R)
 
@@ -521,4 +521,9 @@ end
          end
       end
    end
+end
+
+@testset "gfp.overload" begin
+   R = GF(19)
+   @test R([5]) == R(5)
 end

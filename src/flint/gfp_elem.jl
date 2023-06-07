@@ -469,6 +469,11 @@ function (R::fpField)(a::Union{fpFieldElem, zzModRingElem, FpFieldElem, ZZModRin
    end
 end
 
+function (R::fpField)(a::Vector{IntegerUnion})
+   isone(length(a)) || error("Coercion impossible")
+   return R(a[1])
+end
+
 ###############################################################################
 #
 #   GF constructor

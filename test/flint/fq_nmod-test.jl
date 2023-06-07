@@ -66,7 +66,7 @@ end
    R, a = FiniteField(23, 2, "a")
 
    b = R()
-   
+
    @test Nemo.setindex_raw!(b, UInt(0), 0) == 0
    @test Nemo.setindex_raw!(b, UInt(0), 1) == 0
    @test Nemo.setindex_raw!(b, UInt(2), 1) == 2a
@@ -265,3 +265,9 @@ end
    S, y = polynomial_ring(GF(23), "y")
    @test lift(S, f) == 8y + 9
 end
+<<<<<<< master
+@testset "fqPolyRepField.overload" begin
+   R, x = FiniteField(19, 3, "x")
+   @test R([1,0,1]) == x^2 +1
+end
+>>>>>>> FieldConversions
