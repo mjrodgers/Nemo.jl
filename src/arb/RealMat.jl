@@ -496,7 +496,6 @@ end
 ###############################################################################
 
 function lu!(P::Generic.Perm, x::RealMat)
-  ncols(x) != nrows(x) && error("Matrix must be square")
   parent(P).n != nrows(x) && error("Permutation does not match matrix")
   P.d .-= 1
   r = ccall((:arb_mat_lu, libarb), Cint,
