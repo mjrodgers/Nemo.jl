@@ -508,20 +508,23 @@ function lu!(P::Generic.Perm, x::RealMat)
 end
 
 function lu(x::RealMat, P = SymmetricGroup(nrows(x)))
+  m = nrows(x)
+  n = ncols(x)
+  P.n != m && error("Permutation does not match matrix")
   p = one(P)
   R = base_ring(x)
-  L = similar(x)
+  L = similar(x, R, m, m)
   U = deepcopy(x)
-  n = ncols(x)
+
   r = lu!(p, U)
-  for i = 1:n
+  for i = 1:m
     for j = 1:n
       if i > j
         L[i, j] = U[i, j]
         U[i, j] = R()
       elseif i == j
         L[i, j] = one(R)
-      else
+      elseif j <= m
         L[i, j] = R()
       end
     end
