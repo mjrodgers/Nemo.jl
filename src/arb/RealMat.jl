@@ -515,7 +515,6 @@ function lu(x::RealMat, P = SymmetricGroup(nrows(x)))
   R = base_ring(x)
   L = similar(x, R, m, m)
   U = deepcopy(x)
-
   r = lu!(p, U)
   for i = 1:m
     for j = 1:n
