@@ -361,7 +361,7 @@ end
    @test overlaps(B, C)
 end
 
-@testset "RealMat.lu_nonsquare" begin
+@testset "arb_mat.lu_nonsquare" begin
    S = matrix_space(RR, 2, 3)
 
    A = S(["1.0 +/- 0.01" "1.0 +/- 0.01" "1.0 +/- 0.01";

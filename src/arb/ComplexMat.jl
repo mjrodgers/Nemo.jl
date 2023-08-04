@@ -565,30 +565,6 @@ function lu!(P::Generic.Perm, x::ComplexMat)
   return nrows(x)
 end
 
-function lu(P::Generic.Perm, x::ComplexMat)
-  m = nrows(x)
-  n = ncols(x)
-  P.n != m && error("Permutation does not match matrix")
-  p = one(P)
-  R = base_ring(x)
-  L = similar(x, R, m, m)
-  U = deepcopy(x)
-  lu!(P, U)
-  for i = 1:m
-    for j = 1:n
-      if i > j
-        L[i, j] = U[i, j]
-        U[i, j] = R()
-      elseif i == j
-        L[i, j] = one(R)
-      elseif j <= m
-        L[i, j] = R()
-      end
-    end
-  end
-  return L, U
-end
-
 function solve!(z::ComplexMat, x::ComplexMat, y::ComplexMat)
   r = ccall((:acb_mat_solve, libarb), Cint,
               (Ref{ComplexMat}, Ref{ComplexMat}, Ref{ComplexMat}, Int),
