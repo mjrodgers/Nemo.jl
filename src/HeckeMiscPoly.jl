@@ -239,7 +239,7 @@ function roots(K::FqPolyRepField, f::FpPolyRingElem)
     return roots(ff)
 end
 
-function is_power(a::Union{fqPolyRepFieldElem,FqPolyRepFieldElem,FqFieldElem}, m::Int)
+function is_power(a::Union{fpField, FpFieldElem, fqPolyRepFieldElem,FqPolyRepFieldElem,FqFieldElem}, m::Int)
     if iszero(a)
         return true, a
     end
@@ -537,6 +537,9 @@ function is_squarefree(f::PolyElem{<:FieldElement})
 end
 
 function is_squarefree(f::PolyElem{<:RingElement})
+  if iszero(f)
+    return true
+  end
   fac = factor_squarefree(f)
   return all(e <= 1 for (_, e) in fac)
 end
