@@ -504,7 +504,7 @@ function lu!(P::Generic.Perm, x::RealMat)
   r == 0 && error("Could not find $(nrows(x)) invertible pivot elements")
   P.d .+= 1
   inv!(P)
-  return nrows(x)
+  return min(nrows(x), ncols(x))
 end
 
 function solve!(z::RealMat, x::RealMat, y::RealMat)
