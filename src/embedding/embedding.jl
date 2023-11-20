@@ -120,7 +120,7 @@ function generator_minimum_polynomial(f::FinFieldMorphism)
     b = 2*d
 
     # We define `sec`, the preimage of the morphism `f`
-    
+
     sec = inverse_fn(f)
     x = gen(F)
     y = one(F)
@@ -198,7 +198,7 @@ function find_morphism(k::T, K::T) where T <: FinField
 
     # For each common subfield S of k and K, we compute the minimal polynomial
     # of the canonical generator of k over S, with coefficient seen in K and we
-    # compute the gcd of all these polynomials 
+    # compute the gcd of all these polynomials
 
     for l in keys(subfields(k))
         if haskey(subfields(K), l)
@@ -265,7 +265,7 @@ function transitive_closure(f::FinFieldMorphism)
             end
         else
             val = [domain(v) for v in subK[d]]
-            
+
             for g in subk[d]
                 if !(domain(g) in val)
                     t(y) = f(g(y))
@@ -395,7 +395,8 @@ function embed(k::T, K::T) where T <: FinField
     if degree(k) == degree(K)
         tr = is_embedded(K, k)
         if tr !== nothing
-            return preimage_map(tr)
+            morph = FinFieldMorphism(k, K, inverse_fn(tr), image_fn(tr))
+            return morph
         end
     end
 
@@ -404,28 +405,27 @@ function embed(k::T, K::T) where T <: FinField
 
     needmore = intersections(k, K) # recursive calls to embed
 
+
+    morph = is_embedded(k,K)
+
+    # If the embedding has already been computing, we return it
+    isnothing(morph) || return morph
+
     # And, if the wanted embeddings has not been computed during the process, we
     # finally compute a compatible embedding
 
-    if needmore 
 
-        # We compute a compatible embedding
-        morph = find_morphism(k, K)
+    morph = find_morphism(k, K)
 
-        # We had it to the over and sub fields of k and K
-        AddOverfield!(k, morph)
-        AddSubfield!(K, morph)
+    # We add it to the over and sub fields of k and K
+    AddOverfield!(k, morph)
+    AddSubfield!(K, morph)
 
-        # We compute the transitive closure induced by the new embedding
-        transitive_closure(morph)
+    # We compute the transitive closure induced by the new embedding
+    transitive_closure(morph)
 
-        # And return the embedding
-        return morph
-    else
-
-        # If the embedding has already been computing, we return it
-        return is_embedded(k, K)
-    end
+    # And return the embedding
+    return morph
 end
 
 function embed(k::Nemo.fpField, K::fqPolyRepField)
