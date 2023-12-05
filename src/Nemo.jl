@@ -41,7 +41,7 @@ if isdefined(Base, :tanpi) # added in julia >= 1.10-DEV
 end
 
 import LinearAlgebra: det, norm, nullspace, rank, transpose!, hessenberg, tr,
-                      lu, lu!, eigvals
+                      lu, lu!, eigvals, cholesky
 
 import AbstractAlgebra: nullspace, @show_name, @show_special, find_name,
                         get_attribute, set_attribute!, @attributes,
@@ -340,7 +340,7 @@ end
 export power_series_ring, polynomial_ring, SparsePolynomialRing, matrix_space,
        fraction_field, residue_ring, Partition, SymmetricGroup, YoungTableau,
        AllParts, SkewDiagram, AllPerms, Perm, laurent_series_ring,
-       laurent_series_field, PuiseuxSeriesRing, residue_field
+       laurent_series_field, puiseux_series_ring, residue_field
 
 export Generic
 

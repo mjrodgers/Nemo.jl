@@ -498,6 +498,18 @@ end
    fac = factor_squarefree(f)
 
    @test f == unit(fac) * prod([ p^e for (p, e) in fac])
+
+   @test !is_irreducible(S(2))
+   @test is_irreducible(y^4 + 1)
+   @test is_irreducible(y + 1)
+   @test !is_irreducible(S(4))
+   @test is_irreducible(2y + 2)
+   @test !is_irreducible(y^2)
+
+   @test is_squarefree(7*y^2 + 2)
+   @test is_squarefree(2*y)
+   @test is_squarefree(4*y)
+   @test !is_squarefree(2*y^2)
 end
 
 @testset "QQPolyRingElem.signature" begin
