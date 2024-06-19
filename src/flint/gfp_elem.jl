@@ -35,6 +35,13 @@ end
 
 data(a::fpFieldElem) = a.data
 
+function coeff(x::fpFieldElem, n::Int)
+  n < 0 && throw(DomainError(n, "Index must be non-negative"))
+  n == 0 && return data(a)
+  return UInt(0)
+end
+
+
 lift(a::fpFieldElem) = ZZRingElem(data(a))
 lift(::ZZRing, x::fpFieldElem) = lift(x)
 
