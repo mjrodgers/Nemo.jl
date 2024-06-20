@@ -38,7 +38,7 @@ data(a::FpFieldElem) = a.data
 function coeff(x::FpFieldElem, n::Int)
   n < 0 && throw(DomainError(n, "Index must be non-negative"))
   n == 0 && return data(x)
-  return UInt(0)
+  return zero(ZZ)
 end
 
 lift(a::FpFieldElem) = data(a)
